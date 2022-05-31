@@ -14,7 +14,14 @@ function App() {
         {id: v1(), title: "Rest API", isDone: false},
         {id: v1(), title: "GraphQL", isDone: false},
     ]);
+
+
+
+
+
     let [filter, setFilter] = useState<FilterValuesType>("all");
+
+
 
 
     function removeTask(id: string) {
@@ -54,7 +61,16 @@ function App() {
 
     return (
         <div className="App">
-            <h1>Hello</h1>
+        
+            <Todolist title="What to learn"
+                      tasks={tasksForTodolist}
+                      removeTask={removeTask}
+                      changeFilter={changeFilter}
+                      addTask={addTask}
+                      changeTaskStatus={changeStatus}
+                      filter={filter}
+            />
+            
             <Todolist title="What to learn"
                       tasks={tasksForTodolist}
                       removeTask={removeTask}
