@@ -24,3 +24,9 @@
   opacity: 0.5;
   text-decoration: line-through;
 }
+.button_edit{
+  color: white;
+  background-color: brown;
+  border-radius: 12px;
+}
+

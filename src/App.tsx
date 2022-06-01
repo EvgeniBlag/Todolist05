@@ -15,21 +15,21 @@ type TasksType={
     [key:string]:Array<TaskType>
 }
 
-
+ let todoListId1=v1(); 
+ let todoListId2=v1();
 
 
 
 function App() {
 
-    let todoListId1=v1();
-    let todoListId2=v1();
+   
 
     let [todoList,setTodoList]=useState<Array<TodoListType>>([
         {id:todoListId1,title:"What to learn",filter:"all"},
         {id:todoListId2,title:"What to buy",filter:"completed"},
+       
     ])
 
-    
 
     let [tasks, setTasks] = useState<TasksType>({
 
@@ -51,8 +51,14 @@ function App() {
     });
 
 
+    const removeBloque = (todoListId:string) => {
+        
+        setTodoList(todoList.filter(el=>el.id !== todoListId))
+        delete tasks[todoListId]
+    }
 
-    // let [filter, setFilter] = useState<FilterValuesType>("all");
+
+  
 
 
 
@@ -63,32 +69,22 @@ function App() {
 
     }
 
-    function addTask(todoListId: string, title: string) {
+    
+   
+
+    function addTask(todoListId: string, title: string): void {
 
         let newTask = { id: v1(), title: title, isDone: false };
         setTasks({ ...tasks, [todoListId]:[newTask,...tasks[todoListId]]})
-
     }
+
+
 
     function changeStatus(todoListId:string, taskId: string, isDone: boolean) {
-        // let task = tasks.find(t => t.id === taskId);
-        // if (task) {
-        //     task.isDone = isDone;
-        // }
-
-        // setTasks([...tasks]);
-        setTasks=({...tasks,[todoListId]:tasks[todoListId].map(el=>el.id===taskId ? {...el,isDone}: el)})
+        setTasks({...tasks,[todoListId]:tasks[todoListId].map(el=>el.id===taskId ? {...el,isDone}: el)})
     }
 
 
-    // let tasksForTodolist = tasks;
-
-    // if (filter === "active") {
-    //     tasksForTodolist = tasks.filter(t => t.isDone === false);
-    // }
-    // if (filter === "completed") {
-    //     tasksForTodolist = tasks.filter(t => t.isDone === true);
-    // }
 
     function changeFilter(todoListId:string, value: FilterValuesType): void {
        setTodoList ( todoList.map ( el=>  el.id===todoListId ? { ...el, filter:value } : el ))
@@ -119,6 +115,7 @@ function App() {
                     addTask={addTask}
                     changeTaskStatus={changeStatus}
                     filter={el.filter}
+                    removeBloque={removeBloque}
                     />
                 )
             }

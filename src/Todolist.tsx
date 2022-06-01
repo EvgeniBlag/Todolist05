@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from './App';
+import './App.css';
 
 export type TaskType = {
     id: string
@@ -16,6 +17,7 @@ type PropsType = {
     addTask: (todoListId:string,title: string) => void
     changeTaskStatus: (todoListId:string,taskId: string, isDone: boolean) => void
     filter: FilterValuesType
+    removeBloque:(todoListId:string)=>void
 }
 
 export function Todolist(props: PropsType) {
@@ -36,7 +38,7 @@ export function Todolist(props: PropsType) {
         setTitle(e.currentTarget.value)
     }
 
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    function onKeyPressHandler(e: KeyboardEvent<HTMLInputElement>) {
         setError(null);
         if (e.charCode === 13) {
             addTask();
@@ -46,10 +48,15 @@ export function Todolist(props: PropsType) {
     const onAllClickHandler = () => props.changeFilter(props.todoListId,"all");
     const onActiveClickHandler = () => props.changeFilter(props.todoListId,"active");
     const onCompletedClickHandler = () => props.changeFilter(props.todoListId,"completed");
+    const removeBloqueHandler = () => props.removeBloque(props.todoListId)
 
 
     return <div>
-        <h3>{props.title}</h3>
+        <button onClick={removeBloqueHandler} className="button_edit">Edit</button>
+        <h3>
+        
+            {props.title}</h3>
+     
         <div>
             <input value={title}
                    onChange={onChangeHandler}
